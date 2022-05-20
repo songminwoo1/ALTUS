@@ -139,7 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ublist.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="windowedqueue.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ublist.h" />
+    <ClInclude Include="windowedqueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
