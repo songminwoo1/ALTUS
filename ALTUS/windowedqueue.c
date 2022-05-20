@@ -2,7 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#pragma warning( disable : 6011 6001 28182 4311)
+//#pragma warning( disable : 6011 6001 28182 4311)
+
+#define getWinLen(window, lenPtr) 
+#define recalculateWinLen(window) {int ret = 1;if (window->head == window->safe_tail) {	window->safe_len = 1;}for (WQ_Node* currentNode = window->head; currentNode != window->unsafe_tail; currentNode = currentNode->to_tail) {	if (currentNode == window->safe_tail) {		window->safe_len = ret;	}	ret++;}window->total_len = ret;	}
 
 WQ_Window* altusNewWindow() {
 	WQ_Window* newWindow = (WQ_Window*)malloc(sizeof(WQ_Window));
@@ -19,7 +22,10 @@ WQ_Window* altusNewWindow() {
 	newWindow->safe_tail = newWindow->head;
 	newWindow->unsafe_tail = newWindow->head;
 	newWindow->safe_len = 1;
-	newWindow->unsafe_len = 0;
+	newWindow->total_len = 0;
+	
+	newWindow->ub_list.count = 0;
+	newWindow->windowSize = ALTUS_WINDOW_BLOCK_MAX_DEFAULT;
 
 	newWindow->head->to_head = NULL;
 	newWindow->head->to_tail = NULL;
@@ -108,7 +114,7 @@ void altusNewNode(WQ_Window* window, WQ_Node_Pool* pool) {
 		exit(-1);
 	}
 #endif // _DEBUG
-	
+
 	WQ_Node* newNode;
 	if (pool->recycled_head == pool->recycled_tail) {
 		newNode = (WQ_Node*)malloc(sizeof(WQ_Node));
@@ -126,7 +132,92 @@ void altusNewNode(WQ_Window* window, WQ_Node_Pool* pool) {
 	newNode->to_head = window->unsafe_tail;
 	window->unsafe_tail->to_tail = newNode;
 	window->unsafe_tail = newNode;
-	window->unsafe_len++;
+	window->total_len++;
+}
+
+int altusWindowPut(WQ_Window* window, WQ_Node_Pool* pool, unsigned int seq, unsigned char length, char* data) {
+	//return 0 if everything is ok.
+	//return -1 if unseqenced block received.
+	//return -2 if duplicate block received.
+	//return -3 if window full.
+	//return -4 if too much unsequenced block.
+	//return -5 if invalid input.
+
+	if ( (int)(window->lastSeq - seq) > 0) {
+		return -2;
+	}
+
+	int required_new_node_count = ( (seq + length - window->lastSeq) / ALTUS_WQ_NODE_BLOCK_COUNT ) + 1;
+	//"last" new node can have valid block count 0.(if the node before last is full, when allocated.)
+
+	if (window->safe_len + required_new_node_count > window->windowSize) {
+		return -3;
+	}
+
+	int retval = altusUBCheck(&(window->ub_list), seq, length);
+	switch (retval)
+	{
+	case(ALTUS_UBENUM_FULL):
+		return -4;
+		break;
+	case(ALTUS_UBENUM_MALICIOUS_INPUT):
+		return -5;
+		break;
+	case(ALTUS_UBENUM_OVERLAP):
+		return -2;
+		break;
+	case(ALTUS_UBENUM_UB_EXTENDED):
+		break;
+	case(ALTUS_UBENUM_NEW_UB_ADDED):
+		break;
+	default:
+		exit(-1);
+		break;
+	}
+	//TODO
+	//now, we need to copy data to that exact link location.
+
+
+	//now, check if we can update lastSeq and safe_tail.
+	if (window->ub_list.headSeq[0] == window->lastSeq) {
+
+	}
+}
+
+int altusWindowSanitize(WQ_Window* window) {
+	// return 3 if occupied window length is 1/8 of set windowSize or less.
+	// return 2 if occupied window length is 1/4 of set windowSize or less.
+	// return 1 if occupied window length is 1/2 of set windowSize or less.
+	// return 0 if 50~100% of window length occupied.
+	// return -1 if total length is above window's windowSize.(can happen sometimes, should decrease throughput)
+	// return -2 if total length is above (2*windowSize). (should stop receiving packets right now)
+	// return -3 if total length is above ALTUS_WINDOW_BLOCK_MAX_ABSOLUTE.("must stop now")
+	recalculateWinLen(window);
+	if (window->total_len > ALTUS_WINDOW_BLOCK_MAX_ABSOLUTE) {
+		return -3;
+	}
+
+	if (window->total_len > (window->windowSize << 1) ){
+		return -2;
+	}
+
+	if (window->total_len > window->windowSize) {
+		return -1;
+	}
+
+	if (window->total_len < (window->windowSize >> 3)) {
+		return 3;
+	}
+
+	if (window->total_len < (window->windowSize >> 2)) {
+		return 2;
+	}
+
+	if (window->total_len < (window->windowSize >> 1)) {
+		return 1;
+	}
+
+	return 0;
 }
 
 void altusFreeP(WQ_Node_Pool* pool) {
@@ -175,7 +266,7 @@ void altusTestWQ(WQ_Window* window) {
 	printf("--------- window Test ---------\n");
 	printf("window head: 0x%x\n", (unsigned long)(window->head));
 	printf("window safe tail: 0x%x, len: %d\n", (unsigned long)(window->safe_tail), window->safe_len);
-	printf("window unsafe tail: 0x%x, len: %d\n", (unsigned long)(window->unsafe_tail), window->unsafe_len);
+	printf("window total tail: 0x%x, len: %d\n", (unsigned long)(window->unsafe_tail), window->total_len);
 
 	int nodecount = 1;
 	for (WQ_Node* current_node = window->head; current_node != window->unsafe_tail; current_node = current_node->to_tail) {

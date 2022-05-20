@@ -16,6 +16,8 @@ typedef struct ALTUS_UB_List_STRUCT { //unsequenced block linked list
 
 int altusUBCheck(ALTUS_UB_List* ubList, unsigned int seq, unsigned char length);
 
+int altusUBPop(ALTUS_UB_List* ubList); //unsafe function.(only for internal actions)
+
 #ifdef _DEBUG
 void ALTUS_UBTest(ALTUS_UB_List* ubList);
 #endif // _DEBUG

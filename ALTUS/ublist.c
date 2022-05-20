@@ -8,9 +8,9 @@ int altusUBCheck(ALTUS_UB_List* ubList, unsigned int seq, unsigned char length){
 		unsigned int currentHS = ubList->headSeq[i];
 		unsigned int currentTS = ubList->tailSeq[i];
 
-		if ( seq < currentHS ) {
-			if (seq + length < currentHS) {
-				if (ubList->count < ALTUS_MAX_UNSEQ_BLOCK_COUNT) {
+		if ( (int)(currentHS - seq) > 0 ) {
+			if ( (int)(currentHS - (seq + length)) > 0 ) {
+				if ( (int)(ALTUS_MAX_UNSEQ_BLOCK_COUNT - (ubList->count)) > 0 ) {
 					pushBack(ubList, i);
 					ubList->headSeq[i] = seq;
 					ubList->tailSeq[i] = seq + length;
@@ -29,7 +29,7 @@ int altusUBCheck(ALTUS_UB_List* ubList, unsigned int seq, unsigned char length){
 				return ALTUS_UBENUM_MALICIOUS_INPUT;
 			}
 		}
-		else if (seq < currentTS) {
+		else if ( (int)(currentTS - seq) > 0 ) {
 			return ALTUS_UBENUM_MALICIOUS_INPUT;
 		}
 		else if (seq == currentTS) {
@@ -38,7 +38,7 @@ int altusUBCheck(ALTUS_UB_List* ubList, unsigned int seq, unsigned char length){
 				return ALTUS_UBENUM_UB_EXTENDED;
 			}
 			unsigned int nextHeadSeq = ubList->headSeq[i + 1];
-			if (seq + length < nextHeadSeq) {
+			if ( (int)(nextHeadSeq - (seq + length)) > 0 ) {
 				ubList->tailSeq[i] = seq + length;
 				return ALTUS_UBENUM_UB_EXTENDED;
 			}
@@ -56,7 +56,7 @@ int altusUBCheck(ALTUS_UB_List* ubList, unsigned int seq, unsigned char length){
 			}
 
 		}
-		else if(currentTS < seq && i == ubList->count - 1) { //마지막 블록을 지난 경우.
+		else if( (int)(seq - currentTS) > 0 && i == ubList->count - 1) { //마지막 블록을 지난 경우.
 			if (ubList->count < ALTUS_MAX_UNSEQ_BLOCK_COUNT) {
 				ubList->headSeq[ubList->count] = seq;
 				ubList->tailSeq[ubList->count] = seq + length;
@@ -75,6 +75,25 @@ int altusUBCheck(ALTUS_UB_List* ubList, unsigned int seq, unsigned char length){
 		return ALTUS_UBENUM_NEW_UB_ADDED;
 	}
 	return ALTUS_UBENUM_MALICIOUS_INPUT;
+}
+
+int altusUBPop(ALTUS_UB_List* ubList) {
+	ubList->headSeq[0] = ubList->headSeq[1];
+	ubList->headSeq[1] = ubList->headSeq[2];
+	ubList->headSeq[2] = ubList->headSeq[3];
+	ubList->headSeq[3] = ubList->headSeq[4];
+	ubList->headSeq[4] = ubList->headSeq[5];
+	ubList->headSeq[5] = ubList->headSeq[6];
+	ubList->headSeq[6] = ubList->headSeq[7];
+
+	ubList->tailSeq[0] = ubList->tailSeq[1];
+	ubList->tailSeq[1] = ubList->tailSeq[2];
+	ubList->tailSeq[2] = ubList->tailSeq[3];
+	ubList->tailSeq[3] = ubList->tailSeq[4];
+	ubList->tailSeq[4] = ubList->tailSeq[5];
+	ubList->tailSeq[5] = ubList->tailSeq[6];
+	ubList->tailSeq[6] = ubList->tailSeq[7];
+	ubList->count--;
 }
 
 #ifdef _DEBUG

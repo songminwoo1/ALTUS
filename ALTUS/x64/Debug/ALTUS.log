@@ -1,3 +1,9 @@
-﻿  ublist.c
+﻿  windowedqueue.c
+D:\ALTUS\ALTUS\ALTUS\windowedqueue.c(238,61): warning C4311: '형식 캐스트': 'WQ_Node *'에서 'unsigned long'(으)로 포인터가 잘립니다.
+D:\ALTUS\ALTUS\ALTUS\windowedqueue.c(239,80): warning C4311: '형식 캐스트': 'WQ_Node *'에서 'unsigned long'(으)로 포인터가 잘립니다.
+D:\ALTUS\ALTUS\ALTUS\windowedqueue.c(240,83): warning C4311: '형식 캐스트': 'WQ_Node *'에서 'unsigned long'(으)로 포인터가 잘립니다.
+D:\ALTUS\ALTUS\ALTUS\windowedqueue.c(254,66): warning C4311: '형식 캐스트': 'WQ_Node *'에서 'unsigned long'(으)로 포인터가 잘립니다.
+D:\ALTUS\ALTUS\ALTUS\windowedqueue.c(255,75): warning C4311: '형식 캐스트': 'WQ_Node *'에서 'unsigned long'(으)로 포인터가 잘립니다.
+D:\ALTUS\ALTUS\ALTUS\windowedqueue.c(156): warning C4715: 'altusWindowPut': 모든 제어 경로에서 값을 반환하지는 않습니다.
   main.cpp
   ALTUS.vcxproj -> D:\ALTUS\ALTUS\ALTUS\x64\Debug\ALTUS.exe
