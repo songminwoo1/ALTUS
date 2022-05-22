@@ -11,10 +11,10 @@
 typedef struct ALTUS_UB_List_STRUCT { //unsequenced block linked list
 	unsigned int headSeq[ALTUS_MAX_UNSEQ_BLOCK_COUNT];
 	unsigned int tailSeq[ALTUS_MAX_UNSEQ_BLOCK_COUNT];
-	unsigned char count; //0~8
+	unsigned int count; //0~8
 }ALTUS_UB_List;
 
-int altusUBCheck(ALTUS_UB_List* ubList, unsigned int seq, unsigned char length);
+int altusUBCheck(ALTUS_UB_List* ubList, unsigned int seq, unsigned int length);
 
 int altusUBPop(ALTUS_UB_List* ubList); //unsafe function.(only for internal actions)
 

@@ -1,8 +1,12 @@
 #pragma once
 #include "ublist.h"
+
+#define debugN(a) {printf(#a); printf(": %d\n", a);}
+#define debugH(a) {printf(#a); printf(": 0x%x\n", a);}
+
 #define ALTUS_WQ_BLOCK_SIZE 16 //block size of AES, 128-bit. (smallest unit of data in a node)
-#define ALTUS_WQ_NODE_BLOCK_COUNT 256 //number of blocks in one node.
-#define ALTUS_WQ_NODE_SIZE 4096 //DATA_BLOCK_SIZE * WINDOW_NODE_BLOCK_COUNT
+#define ALTUS_WQ_NODE_BLOCK_COUNT 4 //number of blocks in one node.(256)
+#define ALTUS_WQ_NODE_SIZE 64 //DATA_BLOCK_SIZE * WINDOW_NODE_BLOCK_COUNT(4096)
 #define ALTUS_WINDOW_BLOCK_MAX_DEFAULT 0x20000U //2MB of window.
 #define ALTUS_WINDOW_BLOCK_MAX_ABSOLUTE 0x40000000U //2MB of window.
 
@@ -11,7 +15,7 @@ typedef struct WQ_Node_Struct { //component of WQ_WINDOW
 	void* to_tail;
 
 	char data[ALTUS_WQ_NODE_SIZE]; //4096 byte of data section.
-	unsigned char validBlockCount; //number of valid blocks in data section.(max is 256)
+	unsigned int validBlockCount; //number of valid blocks in data section.(max is 256)
 } WQ_Node;
 
 typedef struct WQ_WINDOW_STRUCT {
@@ -20,7 +24,7 @@ typedef struct WQ_WINDOW_STRUCT {
 	WQ_Node* safe_tail;
 	WQ_Node* unsafe_tail; //when there is no unsafe node, this is same with safe_tail.
 	unsigned int safe_len; //at least 1. this parameter is not reliable.
-	unsigned int total_len; //min is 0. this parameter is not reliable.
+	unsigned int unsafe_len; //min is 0. this parameter is not reliable.
 
 	//this parameters are for unsequenced data handling.
 	ALTUS_UB_List ub_list;
@@ -37,15 +41,17 @@ typedef struct WQ_NODE_POOL_STRUCT {
 
 WQ_Window* altusNewWindow();
 
-WQ_Node_Pool* altusNewNodePool();
+WQ_Node_Pool* altusWQNewNodePool();
 
-void altusPopNode(WQ_Window* window, WQ_Node_Pool* pool); //pop head node from window and recycle it.
+int altusWQPopNode(WQ_Window* window, WQ_Node_Pool* pool); //pop head node from window and recycle it.
 
-void altusNewNode(WQ_Window* window, WQ_Node_Pool* pool); //pop a node from recycled node pool and append it to the window. if no node available in pool, malloc new one.
+void altusWQNewNode(WQ_Window* window, WQ_Node_Pool* pool); //pop a node from recycled node pool and append it to the window. if no node available in pool, malloc new one.
 
-int altusWindowPut(WQ_Window* window, WQ_Node_Pool* pool, unsigned int seq, unsigned char length, char* data);
+int altusWQPut(WQ_Window* window, WQ_Node_Pool* pool, unsigned int seq, unsigned int length, char* data);
 
-int altusWindowSanitize(WQ_Window* window);
+int altusWQPop(WQ_Window* window, WQ_Node_Pool* pool, unsigned int length, char* data);
+
+int altusWQSanitize(WQ_Window* window);
 
 void altusFreeP(WQ_Node_Pool* pool); //free all nodes in pool.
 

@@ -14,16 +14,35 @@ int main() {
 	printf("================== relase build ==================\n");
 #endif // !_DEBUG
 
-	ALTUS_UB_List myUBs;
-	ALTUS_UB_List* myUB = &myUBs;
-	memset(myUB, 0, sizeof(ALTUS_UB_List));
+	WQ_Window* myWindow = altusNewWindow();
+	myWindow->lastSeq = 0;
+	WQ_Node_Pool* myPool = altusWQNewNodePool();
 
 	int a, b;
+	char index = 'a';
+	char buf[4096];
 	while (true) {
 		scanf_s("%d", &a);
 		scanf_s("%d", &b);
 
-		printf("output: %d\n", altusUBCheck(myUB, a, b));
-		ALTUS_UBTest(myUB);
+		memset(buf, '_', 4096);
+		memset(buf, index, b*ALTUS_WQ_BLOCK_SIZE);
+		altusWQPut(myWindow, myPool, a, b, buf);
+
+		altusTestWQ(myWindow);
+		altusTestP(myPool);
+		if (myWindow->head == myWindow->unsafe_tail) {
+			altusTestN(myWindow->head);
+		}
+		for (WQ_Node* currentN = myWindow->head; currentN != myWindow->unsafe_tail; currentN = (WQ_Node*)(currentN->to_tail)) {
+			altusTestN(currentN);
+		}
+		if (myWindow->head != myWindow->unsafe_tail) {
+			altusTestN(myWindow->unsafe_tail);
+		}
+		ALTUS_UBTest(&(myWindow->ub_list));
+		index++;
 	}
+
+	altusFreeWQ(myWindow);
 }

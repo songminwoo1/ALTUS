@@ -3,7 +3,7 @@
 
 #define pushBack(ubList, i) for(int j = ALTUS_MAX_UNSEQ_BLOCK_COUNT-1; j > i; j--){ubList->headSeq[j] = ubList->headSeq[j-1]; ubList->tailSeq[j] = ubList->tailSeq[j-1];}
 
-int altusUBCheck(ALTUS_UB_List* ubList, unsigned int seq, unsigned char length){
+int altusUBCheck(ALTUS_UB_List* ubList, unsigned int seq, unsigned int length){
 	for (int i = 0; i < ubList->count; i++) {
 		unsigned int currentHS = ubList->headSeq[i];
 		unsigned int currentTS = ubList->tailSeq[i];
