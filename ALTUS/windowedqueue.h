@@ -5,8 +5,8 @@
 #define debugH(a) {printf(#a); printf(": 0x%x\n", a);}
 
 #define ALTUS_WQ_BLOCK_SIZE 16 //block size of AES, 128-bit. (smallest unit of data in a node)
-#define ALTUS_WQ_NODE_BLOCK_COUNT 4 //number of blocks in one node.(256)
-#define ALTUS_WQ_NODE_SIZE 64 //DATA_BLOCK_SIZE * WINDOW_NODE_BLOCK_COUNT(4096)
+#define ALTUS_WQ_NODE_BLOCK_COUNT 256 //number of blocks in one node.(256)
+#define ALTUS_WQ_NODE_SIZE 4096 //DATA_BLOCK_SIZE * WINDOW_NODE_BLOCK_COUNT(4096)
 #define ALTUS_WINDOW_BLOCK_MAX_DEFAULT 0x20000U //2MB of window.
 #define ALTUS_WINDOW_BLOCK_MAX_ABSOLUTE 0x40000000U //2MB of window.
 
@@ -25,6 +25,8 @@ typedef struct WQ_WINDOW_STRUCT {
 	WQ_Node* unsafe_tail; //when there is no unsafe node, this is same with safe_tail.
 	unsigned int safe_len; //at least 1. this parameter is not reliable.
 	unsigned int unsafe_len; //min is 0. this parameter is not reliable.
+
+	unsigned int headDataOffset;
 
 	//this parameters are for unsequenced data handling.
 	ALTUS_UB_List ub_list;
@@ -49,7 +51,7 @@ void altusWQNewNode(WQ_Window* window, WQ_Node_Pool* pool); //pop a node from re
 
 int altusWQPut(WQ_Window* window, WQ_Node_Pool* pool, unsigned int seq, unsigned int length, char* data);
 
-int altusWQPop(WQ_Window* window, WQ_Node_Pool* pool, unsigned int length, char* data);
+int altusWQPop(WQ_Window* window, WQ_Node_Pool* pool, int length, char* dest);
 
 int altusWQSanitize(WQ_Window* window);
 
