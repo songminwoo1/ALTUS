@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fileT.cpp" />
     <ClCompile Include="ublist.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="windowedqueue.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="fileT.hpp" />
     <ClInclude Include="ublist.h" />
     <ClInclude Include="windowedqueue.h" />
   </ItemGroup>

@@ -24,12 +24,18 @@
     <ClCompile Include="ublist.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="fileT.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="windowedqueue.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ublist.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="fileT.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
