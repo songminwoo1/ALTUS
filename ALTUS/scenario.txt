@@ -1,0 +1,26 @@
+서버 측 퍼블릭키로 암호화됨.(각 데이터 길이는 16의 배수)
+
+ALTUS/1.0 A FFFF MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAtbZ/sN9FRPLI5uYKxy/FnYX9CwOU9crJEwUOn/xI0m7OSAMUIjdqzO/TBvYtPxsQLK1Mw2h5USz1CyxlfSlOhwxsLSgQeZPcECGpMcV8Zl/Jf9LGakyRKegLdNqNmKsbx7JNGCsYF2943Ugos8xO7hDxHKhXdA35cSCYUmlWaW0NKiz71DRCjmZnszVG1Zcvdaq6CypzMq4hJwROZVqfqE6VgXRRkL1aZNDF0Xs4di0TgJ8Fxn/F6yKYha1u4/Qib55bg7YtnPADu60PInBb1jz38kEz8DrFR6JYEYd2NR09dsy+Wa4f809Obp8K/y0uuF5AntexNmF
+
+ALTUS/1.0 B FFFF mWhToQBcxPWtcGvUrzmkYoOVWdli7Z2p2+t1EAWTtmz6a8j3UPKzvkH5Y4PTbxa1CZkpI4AVeyphH5m3P9uvKRUXhC+fpHD1PIvnqhWqWcf1uFbFj16ZUUlbPt6obfQagigJyFN3snRcPXLmYO8EfaOohixLLfwbrrIpEsse3+9eAeVAHJ7OwMs2F5fsSdytZPV7TqM60APRc2YeUXFFYqAQ8dq+helCCsGjq0SPE7TT87rrIsHowqKcF1x7rD0CPcQi1GtWHb1I3M8KbFKsALajAjcVBSLQNnY50EYZesc47rrNxIcPbon2C1ls0j5JGVFrQXuywSAMaO7mI5Rh47OS83J66s3sCAwEAAQ==
+
+//이름, 버전, 패킷 넘버링, 키 크기, 클라이언트 퍼블릭키
+여기에서 이름, 버전, 패킷넘버링, 키 크기 까지를, ALTUS_HANDSHAKE_HEADER라 함.
+
+{
+세션 키 생성
+connection 클래스 생성
+}
+
+---------
+여기서부터는 클라이언트 퍼블릭키와, 서버의 프라이빗키로 암호화됨. 최초 세션 키 전송.
+서버 퍼블릭키로 복호화한 후, 클라이언트 프라이빗키로 복호화 필요.
+
+ALTUS/1.0 Y 0000
+NdRgUkXn2r5u8x/A			//세션 키.
+
+-------
+//서버의 퍼블릭키로 암호화됨.
+ALTUS/1.0 Z 0000			//handshake done.
+
+첫 채널은, server가 0에서 수신, client가 1에서 수신.

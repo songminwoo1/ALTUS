@@ -259,7 +259,8 @@ int altusWQPop(WQ_Window* window, WQ_Node_Pool* pool, int length, char* dest) {
 		int writelen = currentNode->validBlockCount - window->headDataOffset;
 		if (leftLen < writelen) writelen = leftLen;
 		if (writelen == 0) return length - leftLen;
-		memcpy(dest+(length - leftLen)* ALTUS_WQ_BLOCK_SIZE, &(currentNode->data[window->headDataOffset * ALTUS_WQ_BLOCK_SIZE]), writelen * ALTUS_WQ_BLOCK_SIZE);
+		if(dest != NULL)
+			memcpy(dest+(length - leftLen)* ALTUS_WQ_BLOCK_SIZE, &(currentNode->data[window->headDataOffset * ALTUS_WQ_BLOCK_SIZE]), writelen * ALTUS_WQ_BLOCK_SIZE);
 
 		leftLen -= writelen;
 		window->headDataOffset += writelen;
@@ -279,6 +280,23 @@ int altusWQPop(WQ_Window* window, WQ_Node_Pool* pool, int length, char* dest) {
 		}
 	}
 	return length;
+}
+
+int altusWQPeek(WQ_Window* window, unsigned int seq, char** pos) {
+	unsigned int deltaSeq = seq - window->headSeq;
+	WQ_Node* targetNode = window->head;
+	for (; deltaSeq >= ALTUS_WQ_NODE_BLOCK_COUNT; deltaSeq -= ALTUS_WQ_NODE_BLOCK_COUNT) {
+		if ((targetNode = targetNode->to_tail) == NULL) {
+			*pos = NULL;
+			return 0;
+		}
+	}
+	if (targetNode->validBlockCount - deltaSeq <= 0) {
+		*pos = NULL;
+		return 0;
+	}
+	*pos = targetNode->data + deltaSeq;
+	return targetNode->validBlockCount - deltaSeq;
 }
 
 int altusWQSanitize(WQ_Window* window) {

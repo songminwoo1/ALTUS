@@ -1,95 +1,65 @@
-extern "C"
-{
-#include "windowedqueue.h"
+#include "ALTUSModule.h"
+
+void AcceptSend(void* _host, int a) {
+	ALTUSHost* host = (ALTUSHost*)_host;
+	ALTUSPeer* peer = host->getPeerbyID(a);
+	char buf[] = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.";
+
+	int retval = peer->CreateUpstream(1, buf, strlen(buf));
 }
 
-#define _CRT_SECURE_NO_WARNINGS
-
-#include<iostream>
-#include<fstream>
-#include<time.h>
-#include<Windows.h>
-
-#define TEST_BUF_SIZ 2032
-
 int main() {
+	ALTUS_PrintLogo();
 #ifdef _DEBUG
-	printf("================== debug ==================\n");
+	printf("<== debug ==>\n");
 #endif // _DEBUG
 
 #ifndef _DEBUG
-	printf("================== relase build ==================\n");
+	printf("<== relase build ==>\n");
 #endif // !_DEBUG
 
-	WQ_Window* myWindow = altusNewWindow();
-	myWindow->lastSeq = 0;
-	WQ_Node_Pool* myPool = altusWQNewNodePool();
+	ALTUS_Initialize();
 
-	char buf[TEST_BUF_SIZ]; //prime number(for test)
-	unsigned int seq, len, rlen;
-	seq = 0;
-	len = 0;
-	rlen = 0;
+	std::unique_ptr<ALTUSHost> host1(new ALTUSHost);
+	std::unique_ptr<ALTUSHost> host2(new ALTUSHost(ALTUS_DEFAULT_PORT + 1));
 
-	std::ifstream myFileIn("testFile.txt", std::ios::binary);
-	std::ofstream myFileOut("testOut.txt", std::ios::binary);
+	host1->SetDefaultAcceptAction(AcceptSend);
+	host2->SetDefaultAcceptAction(AcceptSend);
+	host1->SetDefaultConnectAction([](void* host, int a) {printf("Host1: connected a new peer[%d]\n", a); Sleep(5000); printf("22\n"); });
+	host2->SetDefaultConnectAction([](void* host, int a) {printf("Host2: connected a new peer[%d]\n", a); Sleep(5000); printf("33\n");  });
 
-	if (!myFileIn || !myFileOut) {
-		printf("no file!\n");
-		return -1;
-	}
+	host1->run();
+	host2->run();
 
-	clock_t nowTime = clock();
-	clock_t startTime = nowTime;
-	uint64_t totalProcessedMem = 0;
-	while (true) {
+	BYTE* remoteKey = (BYTE*)malloc(ALTUS_RSA_KEY_SIZE);
 
-		myFileIn.read(buf, TEST_BUF_SIZ);
+	host1->connect(L"127.0.0.1", 1600, remoteKey, ALTUS_RSA_KEY_SIZE);
+	//Sleep(5);
+	//host1->connect(L"127.0.0.1", ALTUS_DEFAULT_PORT + 2, remoteKey, ALTUS_RSA_KEY_SIZE);
 
-		std::streamsize bytes = myFileIn.gcount();
-		if (bytes == 0) {
-			std::cout << "Memory processed: " << totalProcessedMem << std::endl;
-			std::cout << "last seq: " << myWindow->lastSeq << std::endl;
+	Sleep(1000);
+	auto recvPeer = host1->getPeerbyID(1);
+	//TODO: read received data.
+	auto recvChannel = recvPeer->getChannelByID(1);
+	for (int i = 0; i < 100; i++) {
+		char buf[101];
+		int length = altusWQPop(recvChannel->buffer, recvChannel->pool, 100, buf);
+		buf[length] = 0;
+		if (length == 0) {
+			std::cout << std::endl;
 			break;
 		}
-
-
-		if (altusWQPut(myWindow, myPool, seq, bytes / 16, buf) != 0) return 0;
-		seq += bytes / 16;
-
-		int poplen;
-		if ((poplen = altusWQPop(myWindow, myPool, bytes / 16, buf)) != bytes / 16) return 0;
-		myFileOut.write(buf, bytes);
-		
-		totalProcessedMem += poplen * ALTUS_WQ_BLOCK_SIZE;
-
-		if (clock() - nowTime > 1000) {
-			nowTime += 1000;
-			std::cout << "Memory processed: " << totalProcessedMem << std::endl;
-			std::cout << "last seq: " << myWindow->lastSeq << std::endl;
-		}
+		std::cout << buf;
+		Sleep(100);
 	}
-	std::cout << "Average Throughput : " << totalProcessedMem / (clock() - startTime) / 1000 << "MB/s" << std::endl;
+	Sleep(4000);
+	printf("done\n");
+	host1->FlushRetryQueue();
 
-	altusFreeWQ(myWindow);
+	host1 = nullptr; //wait until this destruction ends.
+	host2 = nullptr;
+	ALTUS_Terminate();
 
-	altusFreeP(myPool);
-
-	myFileIn.close();
-	myFileOut.close();
-
-	system("cls");
-	system("cd /d C:\\\\Users\\\\alsdn && tree");
-
-	char* pPath;
-	pPath = getenv("PATH");
-	if (pPath != NULL)
-		printf("The current path is: %s", pPath);
-	while (true)
-	{
-		system("color 1f");
-		Sleep(500);
-		system("color 4f");
-		Sleep(500);
-	}
+	free(remoteKey);
+	return 0;
 }

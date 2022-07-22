@@ -94,6 +94,7 @@ int altusUBPop(ALTUS_UB_List* ubList) {
 	ubList->tailSeq[5] = ubList->tailSeq[6];
 	ubList->tailSeq[6] = ubList->tailSeq[7];
 	ubList->count--;
+	return 0;
 }
 
 #ifdef _DEBUG

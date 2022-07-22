@@ -1,0 +1,55 @@
+
+
+host - host
+  connection: session key.
+	channel: 16 byte blocks.
+		channelType,
+		WQ, storage(non-expandable).//union
+		IsChanged
+	channel
+	channel
+
+OnPacketArrived()
+-> channel에 적재..?
+
+<1>
+struct의 경우 적재. - update()
+
+<2>
+stream 의 경우 read()
+-> 이거 read를 예약하는 기능 지원할 것.
+예: link(void* dst, size_t len);
+혹은, write 계열 함수를 미리 예약.
+stdio의 입출력 함수들 지원.
+reserve_fwrite(size_t size, size_t count,
+	FILE *stream)
+
+<3>
+event 의 경우 함수 콜백.
+cdecl vs stdcall???
+** 이 파트가 취약할 수 있음.
+
+모든 암호화/복호화는 패킷 수신/발신시에
+connection 클래스에서 처리됨.
+
+1. 송신시
+0) 채널 설정 - 1개의 rdt_stream 채널을 config 파일
+	전송 목적으로 사용.
+
+	-> 각 채널의 type, 
+	struct의 경우 바이트 사이즈.
+	
+1) shared_struct
+ 원본 데이터에 패딩 추가
+ 암호화, 전송
+
+2) rdt_stream
+	무조건 16 바이트 단위로만 전송
+	송신 종료시에 마지막 블럭이 16 바이트가 안 되는 경우
+	해당 블럭의 바이트 수 표기
+	<header>
+	Seq | 
+
+
+<cuid>: host 간에 공유되는 space.
+일반적으로, 0은 수신, 1은 송신.

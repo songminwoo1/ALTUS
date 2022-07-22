@@ -1,0 +1,149 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.30.30709.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "commandLine": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.30.30705\\bin\\HostX64\\x64\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x00007FF6D19C0C80 -il C:\\Users\\alsdn\\AppData\\Local\\Temp\\_CL_f029e0bfast -typedil -f channel.cpp -Ze -D_MSC_EXTENSIONS -Zp16 -pc \\:/ -D_MSC_VER=1930 -D_MSC_FULL_VER=193030709 -D_MSC_BUILD=0 -D_M_AMD64=100 -ZILP448 -D_M_X64=100 -D_WIN64 -D_WIN32 -GR -D_CPPRTTI -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -EHs -D_CPPUNWIND -EHc -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -MDd -D_DEBUG -D_MT -D_DLL -GS -D_M_FP_PRECISE -Zc:wchar_t -Zc:forScope -permissive- -Fox64\\Debug\\channel.obj -Fdx64\\Debug\\vc143.pdb -external:W 3 -Gd -analyze:projectdirectory D:\\ALTUS\\ALTUS\\ALTUS -analyze:rulesetdirectory ;C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.30.30705\\bin\\HostX64\\x64\\EspXEngine.dll -FC -errorreport:prompt -I C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.30.30705\\include -I C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.30.30705\\atlmfc\\include -I C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -external:I C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.30.30705\\include -I C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.30.30705\\include -external:I C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.30.30705\\atlmfc\\include -I C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.30.30705\\atlmfc\\include -external:I C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Auxiliary\\VS\\include -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -external:I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um",
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/main.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "7bc32d429fee66bee39cc7cc5166c6a5d0303599b0854a72efb1335c4f7dd6d6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/altusmodule.h"
+          },
+          "hashes": {
+            "sha-256": "a21e7585f843a8ce8a4ee0a47bb9a3f86e609a07d8a1c3a4593fe9f64a706b6b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/altushost.h"
+          },
+          "hashes": {
+            "sha-256": "38aab5feaa915f92ddc92766d12d15f863be30695ebc6c7bcfaf64d15cd4b1c2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/altuspeer.h"
+          },
+          "hashes": {
+            "sha-256": "a2edf8e318014a30856e8d13fd9cf7a4584485a03142169c8b18289e00e2c310"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/channel.h"
+          },
+          "hashes": {
+            "sha-256": "e95c9e15ccad494bf05b44663e8dd5ca3d7b723b93d71a8f56d2fdc9e100edc7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/callbackfunctiontypedef.h"
+          },
+          "hashes": {
+            "sha-256": "eb7b636fddce41a44bb4f8fbf4f6696277e4c53e8c5b6baf74ae101c1b1d9395"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/windowedqueue.h"
+          },
+          "hashes": {
+            "sha-256": "dc521a17a7cecbcba102b52a776f66e3ad164e835ec4f107d3e9367c06286a8e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/ublist.h"
+          },
+          "hashes": {
+            "sha-256": "774ffa52254bf9981d272d78b135c8fcc469d19fd6007a09a936af63dbfe3338"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/asciiart.h"
+          },
+          "hashes": {
+            "sha-256": "b65f90268a0055ea8c4dc68a6b87b25c7be68d1ac104145b8d5cfe721378f49c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/filet.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "d9137414c7f90ca1f3b4f4797ce2a4b2d110efd0d37d5d5f1fd5b12d424a5822"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/filet.hpp"
+          },
+          "hashes": {
+            "sha-256": "dce509b7b2dd6de7790e6a1e2d8273979dce7620d57465c6a524bde5e7aff580"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/connection.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "c632b7c29ae58aad3e54cca14407f0c7ea7c6104aa8336fa0cf8ecfe22d0786f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/connection.h"
+          },
+          "hashes": {
+            "sha-256": "0ee675a52e16b931037e66605e845058ac0cb8a676aba1e08a1abf80d0c1fb35"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/altus/altus/altus/channel.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "d219cbab245d815a426803a06aef5b632d33b1a21b54d973ce27c6a66509b7c3"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+<공통>
+1:cuid(2 byte)
+
+<shared_struct> //무조건 한 패킷 내에.
+1: data(variable_length).
+
+<rdt_stream> //seq는 항상 0에서부터 시작. 길이는 패킷 길이로.
+2: padding Length (1byte) //uint8_t. // 16 바이트 암호화로 인한 padding. 맨 끝에서부터 이 숫자만큼 제외. 일반적으로 0~15이나, 경우에 따라 더 클 수 있음.
+3: flags (1byte)
+1: seq number (4byte)
+4: data
+
+//ack packet
+2: lost length(2 byte) - byte alignment 문제로 앞에 배치.
+1: last in-order byte seq number (4byte)
+
+-> loss 발생 시, ARS(ack response) 패킷 전송.
+단, 재전송 중에는 ARS를 보내지 않음
+재전송 중 loss는, 재전송 세션이 끝난 후 다시 ARS 전송.
+(no flag 패킷은 loss 발견시 ARS, ACK 패킷은 무조건 ARS, RET 패킷은 ARS안 함.)
+
+RET 패킷들이 '모두' 손실되어, loss의 2차 재전송 요청인지,
+첫 재전송 요청의 dup packet인지 구분되지 않는 경우,
+재전송 요청 길이가 0인 패킷을 보내고, 다시 원래 재전송 요청을 보낸다.
+-> 전송자 측 재전송 요청 슬롯 리셋 목적.
+
+<lossy_stream>
+1: data Length (1byte) //uint8_t.
+2: data
+
+<rdt_event> //this must happen one after one.
+1: seq number(4 byte)
+2: event id(2-byte씩)
+
+<lossy_event>

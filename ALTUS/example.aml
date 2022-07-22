@@ -1,0 +1,26 @@
+//altus markup language file.
+
+<header>
+	type world
+	size 10MB
+	name mallang's home
+	engine unity
+</header>
+<main>
+	use "example.ast"
+	<object ground>
+		<object block></>
+	</>
+	<object pillar>
+		<spotlight lantern></>
+	</>
+</main>
+<append>
+	<main>
+		<object pillar>
+			use "object.aml"
+			<object window></>
+		</>
+	</>
+</append>
+<delete>

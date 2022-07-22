@@ -27,6 +27,24 @@
     <ClCompile Include="fileT.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="connection.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="channel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ALTUSHost.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ALTUSPeer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ALTUSModule.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CallbackFunctionTypedef.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="windowedqueue.h">
@@ -38,5 +56,48 @@
     <ClInclude Include="fileT.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="ASCIIART.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="connection.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="channel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ALTUSHost.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ALTUSPeer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ALTUSModule.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CallbackFunctionTypedef.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="memo.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="scenario.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="gawoe.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="packetHeader.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="example.aml">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="example.ast">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>
