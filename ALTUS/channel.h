@@ -59,7 +59,7 @@ public:
 	channel(WQ_Node_Pool* _pool, bool IsReceiver);
 	~channel();
 
-	channelType Type();
+	//channelType Type();
 	bool IsReceiving();
 	bool IsUpdated();
 

@@ -22,78 +22,78 @@ public:
 class ALTUSHost
 {
 private:
+	SOCKET localsocket;
+	SOCKADDR_IN localaddr;
+
 	BYTE myPublicKey[ALTUS_RSA_KEY_SIZE];
 	int myPublicKeySize;
 	BYTE myPrivateKey[ALTUS_RSA_KEY_SIZE];
 	int myPrivateKeySize;
 
 	std::map<uint64_t, ALTUSPeer*> peers;		//ip+port to peer map
+	ALTUSPeer* getPeer(uint64_t addrport); //for listener thread.
+
 	std::map<unsigned int, ALTUSPeer*> peid_peer; //peid to peer, auto managed.
 	unsigned int lastpeid;
 	CRITICAL_SECTION peidCreation;
 	std::map<uint64_t, ALTUS_SPrePeer*> s_prepeers; //prepare for connection.
 
 	std::map<uint64_t, ALTUS_CPrePeer*> c_prepeers; //client-side pre-peer.
-	CRITICAL_SECTION poppingcprepeer;
-	std::priority_queue<std::pair<uint32_t, ALTUS_CPrePeer*>, std::vector< std::pair<uint32_t, ALTUS_CPrePeer*>>, Comparator> RetryQuque;
-	std::thread connecterThread;
-	std::mutex connmut;
-	std::condition_variable connecterCond;
-	CRITICAL_SECTION RTQEmptyCheck;
-
-	HANDLE ListenerHandle;
-	DWORD ListenerThreadID;
-	bool _IsAlive; //goes false while deconstruction.
-	bool _IsAccepting;
-
-	//while sending packets.
-	std::mutex sending;
-	std::thread senderThread;
-
- 	SimpleCallBack acceptAction;
-	SimpleCallBack connectAction;
-
-	WQ_Node_Pool* pool;
-public:
-	SOCKET localsocket;
-	SOCKADDR_IN localaddr;
-
-	ALTUSHost();
-	ALTUSHost(uint32_t port);
-	int run();
-	~ALTUSHost();
-
-	ALTUSPeer* getPeerbyID(int peid);
-	ALTUSPeer* getPeer(uint64_t addrport);
-
-	ALTUS_CPrePeer* findCPrePeer(uint64_t addrport);
+	ALTUS_CPrePeer* findCPrePeer(uint64_t addrport); //for listener thread.
 
 	//internal function for accepting connection request.
 	int accepter(uint64_t addrport, char* buf, int size);
 	void sendAck(uint64_t addrport, ALTUS_SPrePeer* prepeer);
 	void prepeerToPeer(uint64_t addrport);
-	int removePeer(unsigned int peid);
 
-	void keep_accept();
-	void decline_accept();
-	bool IsListening(); //only for internal use.
-	bool IsAccepting();
-
-	//client-side
-	int _Connecter();
 	ALTUS_CPrePeer* popCPrePeer(uint64_t addrport); //thread safe.
-	int connect(uint32_t ip, uint16_t port, BYTE* serverkey, int keylen);
-	int connect(PCWSTR ip, uint16_t port, BYTE* serverkey, int keylen);
+
+	int Connecter();
+	std::thread connecterThread;
+	CRITICAL_SECTION poppingcprepeer;
+	std::priority_queue<std::pair<uint32_t, ALTUS_CPrePeer*>, std::vector< std::pair<uint32_t, ALTUS_CPrePeer*>>, Comparator>
+		RetryQuque;
+	std::mutex connmut;
+	std::condition_variable connecterCond;
+	CRITICAL_SECTION RTQEmptyCheck;
 	int SendHandShake1(uint64_t addrport);
 	int TryCompleteConnection(uint64_t addrport, char* buf, int recvSize);
 
-	//sender
+	int Listener();
+	std::thread listenerThread;
+	bool _IsAlive; //goes false while deconstruction.
+	bool _IsAccepting;
+
 	int Sender();
+	std::thread senderThread;
+	std::mutex sending;
+
+ 	SimpleCallBack acceptAction;
+	SimpleCallBack connectAction;
+
+	WQ_Node_Pool* pool; //for low-level memory mangement of rdt stream.
+
+public:
+	ALTUSHost();
+	ALTUSHost(uint32_t port);
+	int run();
+	~ALTUSHost();
+
+	ALTUSPeer* getPeerbyID(int peid); //TODO: handle case when peer does not exist.
+	int removePeer(unsigned int peid); //TODO: make this function thread safe.
+
+	void keep_accept();
+	void decline_accept();
+	bool IsAccepting();
+
+	//client-side
+	int connect(uint32_t ip, uint16_t port, BYTE* serverkey, int keylen);
+	int connect(PCWSTR ip, uint16_t port, BYTE* serverkey, int keylen);
+	void FlushRetryQueue();
 
 	//callback function.
 	void SetDefaultAcceptAction(SimpleCallBack func);
 	void SetDefaultConnectAction(SimpleCallBack func);
 
-	void debug();
-	void FlushRetryQueue();
+	void debug();//TODO: improve.
 };

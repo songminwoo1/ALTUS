@@ -36,9 +36,9 @@ channel::~channel() {
 	return;
 }
 
-channelType channel::Type() {
-	return type;
-}
+//channelType channel::Type() {
+//	return type;
+//}
 
 bool channel::IsReceiving() {
 	return _IsReceiving;

@@ -3,8 +3,12 @@
 ground
 {
 	#static
-	pos (0, -0.05, 0)
-	mesh block(4, 0.1, 4)
+	transform{
+		pos (0, -0.05, 0)
+		rot (0, -0.05, 2)
+	}
+	#mesh block(4, 0.1, 4)
+	mesh fbx(block.prefab)
 }
 
 block

@@ -1,5 +1,5 @@
 //altus markup language file.
-
+channel 1을 통해, 상대가
 <header>
 	type world
 	size 10MB
@@ -7,7 +7,6 @@
 	engine unity
 </header>
 <main>
-	use "example.ast"
 	<object ground>
 		<object block></>
 	</>
@@ -18,9 +17,14 @@
 <append>
 	<main>
 		<object pillar>
-			use "object.aml"
+			use "object.aml" from 123.242.122.12:1605 KEY
 			<object window></>
 		</>
 	</>
 </append>
 <delete>
+
+channel 0을 통해
+GET "example.ast", reuse channel 3;
+
+ 

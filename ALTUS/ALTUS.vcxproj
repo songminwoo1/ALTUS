@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ALTUSAPI.cpp" />
     <ClCompile Include="ALTUSHost.cpp" />
     <ClCompile Include="ALTUSModule.cpp" />
     <ClCompile Include="ALTUSPeer.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="windowedqueue.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ALTUSAPI.h" />
     <ClInclude Include="ALTUSHost.h" />
     <ClInclude Include="ALTUSModule.h" />
     <ClInclude Include="ALTUSPeer.h" />

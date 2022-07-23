@@ -3,8 +3,6 @@
 #include "ALTUSHost.h"
 #include <iostream>
 
-DWORD WINAPI Receiver(LPVOID lpParam);
-
 bool Comparator::operator() (std::pair<uint32_t, ALTUS_CPrePeer*> a, std::pair<uint32_t, ALTUS_CPrePeer*> b) {
 	int32_t res = a.first - b.first;
 	if (res > 0) return true;
@@ -12,7 +10,6 @@ bool Comparator::operator() (std::pair<uint32_t, ALTUS_CPrePeer*> a, std::pair<u
 }
 
 ALTUSHost::ALTUSHost() {
-	printf("newhost\n");
 	myPublicKeySize = ALTUS_RSA_KEY_SIZE;
 	myPrivateKeySize = ALTUS_RSA_KEY_SIZE;
 	lastpeid = 0;
@@ -50,7 +47,6 @@ ALTUSHost::ALTUSHost() {
 }
 
 ALTUSHost::ALTUSHost(uint32_t port) {
-	printf("newhost\n");
 	myPublicKeySize = ALTUS_RSA_KEY_SIZE;
 	myPrivateKeySize = ALTUS_RSA_KEY_SIZE;
 	lastpeid = 0;
@@ -90,21 +86,13 @@ ALTUSHost::ALTUSHost(uint32_t port) {
 int ALTUSHost::run() {
 	_IsAlive = true;
 	_IsAccepting = true;
-	ListenerHandle = CreateThread(
-		NULL,
-		0,
-		Receiver,
-		this,
-		0,
-		&ListenerThreadID
-	);
-	if (ListenerHandle == NULL) {
-		exit(-1);
-	}
-	CloseHandle(ListenerHandle);
+
+	listenerThread = std::thread([&]() {
+		this->Listener();
+		});
 
 	connecterThread = std::thread([&]() {
-		this->_Connecter();
+		this->Connecter();
 		});
 
 	senderThread = std::thread([&]() {
@@ -118,7 +106,9 @@ ALTUSHost::~ALTUSHost() {
 	bool wasAlive = _IsAlive;
 	_IsAlive = false;
 	_IsAccepting = false;
-	WaitForSingleObject(ListenerHandle, 300);
+
+	listenerThread.join();
+	//WaitForSingleObject(ListenerHandle, 300);
 	closesocket(localsocket);
 
 	for (std::pair<const uint64_t, ALTUSPeer*> peer : peers) {
@@ -132,6 +122,7 @@ ALTUSHost::~ALTUSHost() {
 	}
 
 	//connecterCond.notify_all();
+	//TODO: handle deconstructing when retryQueue is not empty(important!)
 	if (wasAlive) {
 		connecterCond.notify_all();
 		connecterThread.join();
@@ -370,10 +361,6 @@ bool ALTUSHost::IsAccepting() {
 	return _IsAccepting;
 }
 
-bool ALTUSHost::IsListening() {
-	return _IsAlive;
-}
-
 ALTUS_CPrePeer* ALTUSHost::popCPrePeer(uint64_t addrport) {
 	EnterCriticalSection(&poppingcprepeer);
 	auto searchRes = c_prepeers.find(addrport);
@@ -412,7 +399,7 @@ int ALTUSHost::connect(uint32_t ip, uint16_t _port,
 	return 0;
 }
 
-int ALTUSHost::_Connecter() {
+int ALTUSHost::Connecter() {
 	while (_IsAlive) {
 		if (RetryQuque.empty()) {
 			std::unique_lock<std::mutex> locker(connmut);
@@ -551,6 +538,44 @@ int ALTUSHost::TryCompleteConnection( //handshake3.
 	return 0;
 }
 
+int ALTUSHost::Listener()
+{
+	SOCKADDR_IN remoteAddr;
+	int addrlen;
+	addrlen = sizeof(remoteAddr);
+	char buf[ALTUS_PACKET_SIZE];
+
+	uint64_t addrport = 0;
+	ALTUSPeer* peer;
+
+	while (_IsAlive) {
+		int recvSize = recvfrom(localsocket, buf, ALTUS_PACKET_SIZE, 0,
+			(SOCKADDR*)&remoteAddr, &addrlen);
+		if (recvSize == SOCKET_ERROR) {
+			continue;
+		}
+
+		addrTo_uint64(&addrport, remoteAddr);
+
+		if ((peer = getPeer(addrport)) == nullptr) {
+			//check if it's in the c_prepeers;
+			ALTUS_CPrePeer* cprepeer = findCPrePeer(addrport);
+			if (cprepeer != nullptr) {
+				TryCompleteConnection(addrport, buf, recvSize);
+				continue;
+			}
+
+			if (IsAccepting()) {
+				accepter(addrport, buf, recvSize);
+			}
+			continue;
+		}
+
+		peer->processPacket(buf, recvSize);
+	}
+	return 0;
+}
+
 int ALTUSHost::Sender() {
 	while (_IsAlive)
 	{
@@ -585,44 +610,4 @@ void ALTUSHost::debug() {
 	for (std::pair<unsigned int, ALTUSPeer*> peer : peid_peer) {
 		printf("peid[%d]\n", peer.first);
 	}
-}
-
-DWORD WINAPI Receiver(LPVOID lpParam)
-{
-	ALTUSHost* host = (ALTUSHost*)lpParam;
-
-	SOCKADDR_IN remoteAddr;
-	int addrlen;
-	addrlen = sizeof(remoteAddr);
-	char buf[ALTUS_PACKET_SIZE];
-
-	uint64_t addrport = 0;
-	ALTUSPeer* peer;
-
-	while (host->IsListening()) {
-		int recvSize = recvfrom(host->localsocket, buf, ALTUS_PACKET_SIZE, 0,
-			(SOCKADDR*)&remoteAddr, &addrlen);
-		if (recvSize == SOCKET_ERROR) {
-			continue;
-		}
-
-		addrTo_uint64(&addrport, remoteAddr);
-
-		if( ( peer = host->getPeer(addrport) ) == nullptr ) {
-			//check if it's in the c_prepeers;
-			ALTUS_CPrePeer* cprepeer = host->findCPrePeer(addrport);
-			if (cprepeer != nullptr) {
-				host->TryCompleteConnection(addrport, buf, recvSize);
-				continue;
-			}
-
-			if (host->IsAccepting()) {
-				host->accepter(addrport, buf, recvSize);
-			}
-			continue;
-		}
-
-		peer->processPacket(buf, recvSize);
-	}
-    return 0;
 }

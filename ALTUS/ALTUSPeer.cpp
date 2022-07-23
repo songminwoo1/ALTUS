@@ -203,7 +203,7 @@ int ALTUSPeer::CreateUpstream(uint16_t cuid, char* buf, int len) {
 	auto searchRes = ch.find(cuid);
 	if (searchRes == ch.end()) return -1;
 	channel* thisChannel = searchRes->second;
-	if (thisChannel->Type() != channelType::rdt_stream || thisChannel->IsReceiving()) return -2;
+	if (thisChannel->type != channelType::rdt_stream || thisChannel->IsReceiving()) return -2;
 
 	int retval = altusWQPut(thisChannel->buffer, pool, thisChannel->buffer->lastSeq, len, buf);
 	thisChannel->_IsUpdated = true;
