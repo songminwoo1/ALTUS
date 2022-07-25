@@ -48,6 +48,15 @@
     <ClCompile Include="ALTUSAPI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="fileReceiveStream.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="fileSendStream.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeBase.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="windowedqueue.h">
@@ -81,6 +90,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ALTUSAPI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="fileReceiveStream.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="fileSendStream.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeBase.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

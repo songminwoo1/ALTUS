@@ -1,440 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
     <SFA>
       <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>ALTUSHost.cpp</FILENAME>
-      <LINE>237</LINE>
-      <COLUMN>126</COLUMN>
+      <FILENAME>fileReceiveStream.cpp</FILENAME>
+      <LINE>117</LINE>
+      <COLUMN>2</COLUMN>
     </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>산술 오버플로: 4 바이트 값의 '-' 연산자를 사용한 다음 결과를 8 바이트 값에 캐스트합니다. 오버플로를 방지하려면 '-' 연산자를 호출하기 전에 더 광범위한 형식에 값을 캐스트합니다(io.2).</DESCRIPTION>
-    <FUNCTION>ALTUSHost::accepter</FUNCTION>
-    <DECORATED>?accepter@ALTUSHost@@QEAAH_KPEADH@Z</DECORATED>
-    <FUNCLINE>170</FUNCLINE>
+    <DEFECTCODE>6293</DEFECTCODE>
+    <DESCRIPTION>for 루프가 잘못 정의되었습니다.  최소값부터 아래로 계산됩니다.</DESCRIPTION>
+    <FUNCTION>FileRcvStream::Append</FUNCTION>
+    <DECORATED>?Append@FileRcvStream@@QEAAHIIPEAD@Z</DECORATED>
+    <FUNCLINE>61</FUNCLINE>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
       <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>ALTUSHost.cpp</FILENAME>
-      <LINE>233</LINE>
-      <COLUMN>126</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>산술 오버플로: 4 바이트 값의 '-' 연산자를 사용한 다음 결과를 8 바이트 값에 캐스트합니다. 오버플로를 방지하려면 '-' 연산자를 호출하기 전에 더 광범위한 형식에 값을 캐스트합니다(io.2).</DESCRIPTION>
-    <FUNCTION>ALTUSHost::accepter</FUNCTION>
-    <DECORATED>?accepter@ALTUSHost@@QEAAH_KPEADH@Z</DECORATED>
-    <FUNCLINE>170</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>ALTUSHost.cpp</FILENAME>
-      <LINE>229</LINE>
-      <COLUMN>122</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>산술 오버플로: 4 바이트 값의 '-' 연산자를 사용한 다음 결과를 8 바이트 값에 캐스트합니다. 오버플로를 방지하려면 '-' 연산자를 호출하기 전에 더 광범위한 형식에 값을 캐스트합니다(io.2).</DESCRIPTION>
-    <FUNCTION>ALTUSHost::accepter</FUNCTION>
-    <DECORATED>?accepter@ALTUSHost@@QEAAH_KPEADH@Z</DECORATED>
-    <FUNCLINE>170</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>ALTUSHost.cpp</FILENAME>
-      <LINE>222</LINE>
-      <COLUMN>70</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>산술 오버플로: 4 바이트 값의 '-' 연산자를 사용한 다음 결과를 8 바이트 값에 캐스트합니다. 오버플로를 방지하려면 '-' 연산자를 호출하기 전에 더 광범위한 형식에 값을 캐스트합니다(io.2).</DESCRIPTION>
-    <FUNCTION>ALTUSHost::accepter</FUNCTION>
-    <DECORATED>?accepter@ALTUSHost@@QEAAH_KPEADH@Z</DECORATED>
-    <FUNCLINE>170</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>ALTUSHost.cpp</FILENAME>
-      <LINE>266</LINE>
-      <COLUMN>92</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>산술 오버플로: 4 바이트 값의 '-' 연산자를 사용한 다음 결과를 8 바이트 값에 캐스트합니다. 오버플로를 방지하려면 '-' 연산자를 호출하기 전에 더 광범위한 형식에 값을 캐스트합니다(io.2).</DESCRIPTION>
-    <FUNCTION>ALTUSHost::accepter</FUNCTION>
-    <DECORATED>?accepter@ALTUSHost@@QEAAH_KPEADH@Z</DECORATED>
-    <FUNCLINE>170</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>ALTUSHost.cpp</FILENAME>
-      <LINE>262</LINE>
-      <COLUMN>92</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>산술 오버플로: 4 바이트 값의 '-' 연산자를 사용한 다음 결과를 8 바이트 값에 캐스트합니다. 오버플로를 방지하려면 '-' 연산자를 호출하기 전에 더 광범위한 형식에 값을 캐스트합니다(io.2).</DESCRIPTION>
-    <FUNCTION>ALTUSHost::accepter</FUNCTION>
-    <DECORATED>?accepter@ALTUSHost@@QEAAH_KPEADH@Z</DECORATED>
-    <FUNCLINE>170</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>ALTUSHost.cpp</FILENAME>
-      <LINE>258</LINE>
-      <COLUMN>88</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>산술 오버플로: 4 바이트 값의 '-' 연산자를 사용한 다음 결과를 8 바이트 값에 캐스트합니다. 오버플로를 방지하려면 '-' 연산자를 호출하기 전에 더 광범위한 형식에 값을 캐스트합니다(io.2).</DESCRIPTION>
-    <FUNCTION>ALTUSHost::accepter</FUNCTION>
-    <DECORATED>?accepter@ALTUSHost@@QEAAH_KPEADH@Z</DECORATED>
-    <FUNCLINE>170</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>ALTUSHost.cpp</FILENAME>
-      <LINE>254</LINE>
-      <COLUMN>36</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>산술 오버플로: 4 바이트 값의 '-' 연산자를 사용한 다음 결과를 8 바이트 값에 캐스트합니다. 오버플로를 방지하려면 '-' 연산자를 호출하기 전에 더 광범위한 형식에 값을 캐스트합니다(io.2).</DESCRIPTION>
-    <FUNCTION>ALTUSHost::accepter</FUNCTION>
-    <DECORATED>?accepter@ALTUSHost@@QEAAH_KPEADH@Z</DECORATED>
-    <FUNCLINE>170</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>ALTUSHost.cpp</FILENAME>
-      <LINE>307</LINE>
+      <FILENAME>fileReceiveStream.cpp</FILENAME>
+      <LINE>253</LINE>
       <COLUMN>7</COLUMN>
     </SFA>
-    <DEFECTCODE>6385</DEFECTCODE>
-    <DESCRIPTION>'msg'에서 잘못된 데이터를 읽고 있습니다.  읽기 가능한 크기는 '_Old_3`10'바이트인데 실제로는 '44'바이트만 읽을 수 있습니다.</DESCRIPTION>
-    <FUNCTION>ALTUSHost::sendAck</FUNCTION>
-    <DECORATED>?sendAck@ALTUSHost@@QEAAX_KPEAVALTUS_SPrePeer@@@Z</DECORATED>
-    <FUNCLINE>287</FUNCLINE>
-    <PROBABILITY>1</PROBABILITY>
-    <RANK>4</RANK>
-    <CATEGORY>
-      <RULECATEGORY>mspft</RULECATEGORY>
-    </CATEGORY>
-    <PATH>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>288</LINE>
-        <COLUMN>13</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>289</LINE>
-        <COLUMN>10</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>290</LINE>
-        <COLUMN>10</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>292</LINE>
-        <COLUMN>1</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>293</LINE>
-        <COLUMN>23</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>294</LINE>
-        <COLUMN>33</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>295</LINE>
-        <COLUMN>21</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>297</LINE>
-        <COLUMN>6</COLUMN>
-        <KEYEVENT>
-          <ID>1</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>'msg'이(가) 44바이트 배열입니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>298</LINE>
-        <COLUMN>7</COLUMN>
-        <KEYEVENT>
-          <ID>2</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>'msg'은(는) 'memcpy'(c:\program files\microsoft visual studio\2022\community\vc\tools\msvc\14.30.30705\include\vcruntime_string.h:43에서 선언됨)의 출력입니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>299</LINE>
-        <COLUMN>7</COLUMN>
-        <KEYEVENT>
-          <ID>3</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>'msg'은(는) 'memset'(c:\program files\microsoft visual studio\2022\community\vc\tools\msvc\14.30.30705\include\vcruntime_string.h:63에서 선언됨)에 대한 In/Out 인수입니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>300</LINE>
-        <COLUMN>7</COLUMN>
-        <KEYEVENT>
-          <ID>4</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>'msg'은(는) 'memset'(c:\program files\microsoft visual studio\2022\community\vc\tools\msvc\14.30.30705\include\vcruntime_string.h:63에서 선언됨)에 대한 In/Out 인수입니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>307</LINE>
-        <COLUMN>7</COLUMN>
-        <KEYEVENT>
-          <ID>5</ID>
-          <KIND>usage</KIND>
-          <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>'msg[43]'에서 읽기가 잘못됨, (읽기 가능한 범위는 0에서 9 사이임)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-    </PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>ALTUSHost.cpp</FILENAME>
-      <LINE>493</LINE>
-      <COLUMN>8</COLUMN>
-    </SFA>
-    <DEFECTCODE>6385</DEFECTCODE>
-    <DESCRIPTION>'msg'에서 잘못된 데이터를 읽고 있습니다.  읽기 가능한 크기는 '_Old_4`9'바이트인데 실제로는 '484'바이트만 읽을 수 있습니다.</DESCRIPTION>
-    <FUNCTION>ALTUSHost::SendHandShake1</FUNCTION>
-    <DECORATED>?SendHandShake1@ALTUSHost@@QEAAH_K@Z</DECORATED>
-    <FUNCLINE>469</FUNCLINE>
-    <PROBABILITY>1</PROBABILITY>
-    <RANK>4</RANK>
-    <CATEGORY>
-      <RULECATEGORY>mspft</RULECATEGORY>
-    </CATEGORY>
-    <PATH>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>470</LINE>
-        <COLUMN>6</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>471</LINE>
-        <COLUMN>13</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>473</LINE>
-        <COLUMN>13</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>474</LINE>
-        <COLUMN>1</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>475</LINE>
-        <COLUMN>33</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>476</LINE>
-        <COLUMN>23</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>477</LINE>
-        <COLUMN>21</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>478</LINE>
-        <COLUMN>6</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>479</LINE>
-        <COLUMN>10</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>479</LINE>
-        <COLUMN>31</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>480</LINE>
-        <COLUMN>7</COLUMN>
-        <KEYEVENT>
-          <ID>1</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>'msg'이(가) 496바이트 배열입니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>481</LINE>
-        <COLUMN>8</COLUMN>
-        <KEYEVENT>
-          <ID>2</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>'msg'은(는) 'memcpy'(c:\program files\microsoft visual studio\2022\community\vc\tools\msvc\14.30.30705\include\vcruntime_string.h:43에서 선언됨)의 출력입니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>482</LINE>
-        <COLUMN>9</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>483</LINE>
-        <COLUMN>10</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>484</LINE>
-        <COLUMN>8</COLUMN>
-        <KEYEVENT>
-          <ID>3</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>'msg'은(는) 'memcpy'(c:\program files\microsoft visual studio\2022\community\vc\tools\msvc\14.30.30705\include\vcruntime_string.h:43에서 선언됨)에 대한 In/Out 인수입니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>486</LINE>
-        <COLUMN>6</COLUMN>
-        <KEYEVENT>
-          <ID>4</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>'sendinglength'이(가) 484과(와) 같습니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>487</LINE>
-        <COLUMN>20</COLUMN>
-        <KEYEVENT>
-          <ID>5</ID>
-          <KIND>branch</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>이 분기 건너뛰기, ('&lt;분기 조건&gt;'이(가) false라고 가정)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>490</LINE>
-        <COLUMN>8</COLUMN>
-        <KEYEVENT>
-          <ID>6</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>'msg'은(는) 'memcpy'(c:\program files\microsoft visual studio\2022\community\vc\tools\msvc\14.30.30705\include\vcruntime_string.h:43에서 선언됨)에 대한 In/Out 인수입니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>493</LINE>
-        <COLUMN>8</COLUMN>
-        <KEYEVENT>
-          <ID>7</ID>
-          <KIND>usage</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>'sendinglength'은(는) 'sendto'(c:\program files (x86)\windows kits\10\include\10.0.19041.0\um\winsock2.h:2100에서 선언됨)에 대한 입력입니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>ALTUSHost.cpp</FILENAME>
-        <LINE>493</LINE>
-        <COLUMN>8</COLUMN>
-        <KEYEVENT>
-          <ID>8</ID>
-          <KIND>usage</KIND>
-          <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>'msg'에서 읽기가 잘못됨, (읽기 가능한 범위를 벗어남)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-    </PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>windowedqueue.c</FILENAME>
-      <LINE>262</LINE>
-      <COLUMN>22</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>산술 오버플로: 4 바이트 값의 '-' 연산자를 사용한 다음 결과를 8 바이트 값에 캐스트합니다. 오버플로를 방지하려면 '-' 연산자를 호출하기 전에 더 광범위한 형식에 값을 캐스트합니다(io.2).</DESCRIPTION>
-    <FUNCTION>altusWQPop</FUNCTION>
-    <DECORATED>altusWQPop</DECORATED>
-    <FUNCLINE>254</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>windowedqueue.c</FILENAME>
-      <LINE>332</LINE>
-      <COLUMN>15</COLUMN>
-    </SFA>
-    <DEFECTCODE>6001</DEFECTCODE>
-    <DESCRIPTION>초기화되지 않은 메모리 '*current_node'을(를) 사용하고 있습니다.</DESCRIPTION>
-    <FUNCTION>altusFreeP</FUNCTION>
-    <DECORATED>altusFreeP</DECORATED>
-    <FUNCLINE>320</FUNCLINE>
+    <DEFECTCODE>28182</DEFECTCODE>
+    <DESCRIPTION>NULL 포인터를 역참조하고 있습니다. 'targetNode'에 'targetNode-&gt;to_tail'과(와) 동일한 NULL 값이 포함되어 있습니다. </DESCRIPTION>
+    <FUNCTION>FileRcvStream::PutUnSeq</FUNCTION>
+    <DECORATED>?PutUnSeq@FileRcvStream@@AEAAXIIPEAD@Z</DECORATED>
+    <FUNCLINE>236</FUNCLINE>
     <PROBABILITY>1</PROBABILITY>
     <RANK>3</RANK>
     <CATEGORY>
@@ -443,171 +31,177 @@
     <PATH>
       <SFA>
         <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>321</LINE>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>237</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>238</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>239</LINE>
         <COLUMN>10</COLUMN>
       </SFA>
       <SFA>
         <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>325</LINE>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>240</LINE>
+        <COLUMN>26</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>241</LINE>
+        <COLUMN>3</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>243</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'targetNode'은(는) NULL일 수 있습니다.</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>239</LINE>
+        <COLUMN>32</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>239</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>이 루프 종료, ('i&gt;=4096'이(가) false임)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>247</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>248</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>이 분기 건너뛰기, ('writableLen&gt;=length'이(가) false라고 가정)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>253</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'targetNode'이(가) 역참조되었지만 여전히 NULL일 수 있습니다.</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+      <FILENAME>fileReceiveStream.cpp</FILENAME>
+      <LINE>257</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>NULL 포인터 'targetNode-&gt;to_tail'을(를) 역참조하고 있습니다. </DESCRIPTION>
+    <FUNCTION>FileRcvStream::PutUnSeq</FUNCTION>
+    <DECORATED>?PutUnSeq@FileRcvStream@@AEAAXIIPEAD@Z</DECORATED>
+    <FUNCLINE>236</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>237</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>238</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>239</LINE>
+        <COLUMN>10</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>247</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>248</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>253</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>254</LINE>
         <COLUMN>25</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>329</LINE>
-        <COLUMN>10</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>330</LINE>
-        <COLUMN>21</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>331</LINE>
-        <COLUMN>11</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>332</LINE>
-        <COLUMN>15</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>333</LINE>
-        <COLUMN>6</COLUMN>
         <KEYEVENT>
           <ID>1</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>'*current_node'이(가) 초기화되지 않았습니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>330</LINE>
-        <COLUMN>21</COLUMN>
-        <KEYEVENT>
-          <ID>2</ID>
           <KIND>branch</KIND>
           <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>이 루프 계속, ('&lt;분기 조건&gt;' 가정)</MESSAGE>
+          <MESSAGE>'targetNode-&gt;to_tail'은(는) NULL일 수 있습니다. (이 분기 시작)</MESSAGE>
         </KEYEVENT>
       </SFA>
       <SFA>
         <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>331</LINE>
-        <COLUMN>11</COLUMN>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>255</LINE>
+        <COLUMN>2</COLUMN>
       </SFA>
       <SFA>
         <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>332</LINE>
-        <COLUMN>15</COLUMN>
-        <KEYEVENT>
-          <ID>3</ID>
-          <KIND>usage</KIND>
-          <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>'*current_node'이(가) 사용되는데 초기화되지 않았을 수 있습니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-    </PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-      <FILENAME>windowedqueue.c</FILENAME>
-      <LINE>346</LINE>
-      <COLUMN>15</COLUMN>
-    </SFA>
-    <DEFECTCODE>6001</DEFECTCODE>
-    <DESCRIPTION>초기화되지 않은 메모리 '*current_node'을(를) 사용하고 있습니다.</DESCRIPTION>
-    <FUNCTION>altusFreeWQ</FUNCTION>
-    <DECORATED>altusFreeWQ</DECORATED>
-    <FUNCLINE>338</FUNCLINE>
-    <PROBABILITY>1</PROBABILITY>
-    <RANK>3</RANK>
-    <CATEGORY>
-      <RULECATEGORY>mspft</RULECATEGORY>
-    </CATEGORY>
-    <PATH>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>339</LINE>
-        <COLUMN>12</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>343</LINE>
-        <COLUMN>10</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>344</LINE>
-        <COLUMN>21</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>345</LINE>
-        <COLUMN>11</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>346</LINE>
-        <COLUMN>15</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>347</LINE>
-        <COLUMN>6</COLUMN>
-        <KEYEVENT>
-          <ID>1</ID>
-          <KIND>declaration</KIND>
-          <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>'*current_node'이(가) 초기화되지 않았습니다.</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>344</LINE>
-        <COLUMN>21</COLUMN>
+        <FILENAME>fileReceiveStream.cpp</FILENAME>
+        <LINE>257</LINE>
+        <COLUMN>7</COLUMN>
         <KEYEVENT>
           <ID>2</ID>
-          <KIND>branch</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>이 루프 계속, ('&lt;분기 조건&gt;' 가정)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>345</LINE>
-        <COLUMN>11</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>D:\ALTUS\ALTUS\ALTUS\</FILEPATH>
-        <FILENAME>windowedqueue.c</FILENAME>
-        <LINE>346</LINE>
-        <COLUMN>15</COLUMN>
-        <KEYEVENT>
-          <ID>3</ID>
           <KIND>usage</KIND>
           <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>'*current_node'이(가) 사용되는데 초기화되지 않았을 수 있습니다.</MESSAGE>
+          <MESSAGE>'targetNode-&gt;to_tail'이(가) 역참조되었지만 여전히 NULL일 수 있습니다.</MESSAGE>
         </KEYEVENT>
       </SFA>
     </PATH>

@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-channel::channel(WQ_Node_Pool* _pool, bool IsReceiver) {
-	pool = _pool;
+channel::channel(NodePool* _newPool, WQ_Node_Pool* _pool, bool IsReceiver) {
+	pool = _pool; //deprecated
+	newPool = _newPool;
 	_IsReceiving = IsReceiver;
 	type = channelType::invalid;
 
@@ -16,6 +16,64 @@ channel::channel(WQ_Node_Pool* _pool, bool IsReceiver) {
 	storage_size = 0;
 }
 
+channel::channel(NodePool* _newPool, WQ_Node_Pool* _pool, channelType _type, void* arg, int n) {
+	pool = _pool; //deprecated
+	newPool = _newPool;
+	type = _type;
+	switch (_type)
+	{
+	case channelType::invalid:
+		throw std::invalid_argument("Invalid channel type");
+		break;
+	case channelType::shared_struct:
+		_IsReceiving = false; //deprecated.
+		NextSendSeq = 0;   //deprecated.
+		lastAckedSeq = 0;  //deprecated.
+		lastLostLen = 0;   //deprecated.
+		_IsUpdated = false;//deprecated.
+
+		storage = arg;
+		storage_size = n;
+		break;
+	case channelType::rdt_stream:
+		_IsReceiving = false; //deprecated.
+		NextSendSeq = 0;   //deprecated.
+		lastAckedSeq = 0;  //deprecated.
+		lastLostLen = 0;   //deprecated.
+		_IsUpdated = false;//deprecated.
+
+		buffer = altusNewWindow();//deprecated.
+		break;
+	case channelType::file_stream:
+		//TODO
+		break;
+	case channelType::lossy_stream:
+		//TODO
+		break;
+	case channelType::shared_struct_rcv:
+		//TODO
+		break;
+	case channelType::rdt_stream_rcv:
+		//TODO
+		break;
+	case channelType::file_stream_rcv:
+		_IsReceiving = true; //deprecated.
+		NextSendSeq = 0;   //deprecated.
+		lastAckedSeq = 0;  //deprecated.
+		lastLostLen = 0;   //deprecated.
+		_IsUpdated = false;//deprecated.
+
+		frstream = new FileRcvStream(newPool);
+		break;
+	case channelType::lossy_stream_rcv:
+		//TODO
+		break;
+	default:
+		throw std::invalid_argument("Invalid channel type");
+		break;
+	}
+}
+
 channel::~channel() {
 	switch (type)
 	{
@@ -23,17 +81,26 @@ channel::~channel() {
 	case channelType::shared_struct:
 		break;
 	case channelType::rdt_stream:
-	case channelType::lossy_stream:
-	case channelType::rdt_event:
-	case channelType::lossy_event:
 		altusFreeWQ(buffer);
 		break;
+	case channelType::file_stream:
+		break;
+	case channelType::lossy_stream:
+		break;
+	case channelType::shared_struct_rcv:
+		break;
+	case channelType::rdt_stream_rcv:
+		altusFreeWQ(buffer);
+		break;
+	case channelType::file_stream_rcv:
+		delete frstream;
+		break;
+	case channelType::lossy_stream_rcv:
+		break;
 	default:
-		fprintf(stderr, "NonExistingChannelType(not invalid):heap corruption detected.\n");
-		exit(-1);
+		throw std::runtime_error("stack corruption detected");
 		break;
 	}
-	return;
 }
 
 //channelType channel::Type() {
@@ -100,14 +167,18 @@ int channel::receive(char* buf, int packetSize) {
 			altusWQPut(buffer, pool, buffer->lastSeq, packetSize >> 4, buf);
 			return 0;
 		}
-		case channelType::rdt_event:
+		case channelType::file_stream_rcv:
 		{
-			return -2;
+			uint8_t paddingLen = buf[2];
+			uint8_t flags = buf[3];
+			unsigned int currentSeq;
+			memcpy(&currentSeq, buf + 4, 4);
+			currentSeq = ntohl(currentSeq);
+			int ret = frstream->Append(currentSeq, packetSize - ALTUS_RDT_HEADER_SIZE - paddingLen, buf + ALTUS_RDT_HEADER_SIZE);
+			//std::cout << "FSR: " << ret << std::endl;
+			//if (flags | ALTUS_FLAG_ACK) return 1; //1 means require sending Ack.
+			return 0;
 		}
-		case channelType::lossy_event:
-			return -2;
-		case channelType::array_reserved:
-			return -2;
 		default:
 			fprintf(stderr, "NonExistingChannelType(not invalid):heap corruption detected.\n");
 			exit(-1);
@@ -121,7 +192,7 @@ int channel::receive(char* buf, int packetSize) {
 			break;
 		case channelType::shared_struct:
 			break;
-		case channelType::rdt_stream:
+		case channelType::rdt_stream: //deprecated
 		{
 			//Acknowledgement packet received.
 			//need to handle loss.
@@ -145,12 +216,6 @@ int channel::receive(char* buf, int packetSize) {
 			break;
 		}
 		case channelType::lossy_stream:
-			break;
-		case channelType::rdt_event:
-			break;
-		case channelType::lossy_event:
-			break;
-		case channelType::array_reserved:
 			break;
 		default:
 			break;

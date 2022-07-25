@@ -151,7 +151,7 @@ int altusWQPut(WQ_Window* window, WQ_Node_Pool* pool, unsigned int seq, unsigned
 		return -2;
 	}
 
-	int required_new_node_count = ( (seq + length - window->lastSeq) / ALTUS_WQ_NODE_BLOCK_COUNT ) + 1;//this parameter not reliable.
+	int required_new_node_count = ( (seq + length - window->lastSeq) / ALTUS_NODE_SIZE ) + 1;//this parameter not reliable.
 	//"last" new node can have valid block count 0.(if the node before last is full, when allocated.)
 
 	if (window->safe_len + required_new_node_count > window->windowSize) {
@@ -187,13 +187,13 @@ int altusWQPut(WQ_Window* window, WQ_Node_Pool* pool, unsigned int seq, unsigned
 		unsigned int leftLen = length;
 
 		while (leftLen != 0) {
-			unsigned int writelen = currentNodeSeq + ALTUS_WQ_NODE_BLOCK_COUNT - leftSeq;
+			unsigned int writelen = currentNodeSeq + ALTUS_NODE_SIZE - leftSeq;
 			if (writelen <= 0) { //we don't write in this node.
 				if (currentNode == window->unsafe_tail) {
 					altusWQNewNode(window, pool);
 				}
 				currentNode = currentNode->to_tail;
-				currentNodeSeq += ALTUS_WQ_NODE_BLOCK_COUNT;
+				currentNodeSeq += ALTUS_NODE_SIZE;
 				continue;
 			}
 			if (leftLen < writelen) {
@@ -205,10 +205,10 @@ int altusWQPut(WQ_Window* window, WQ_Node_Pool* pool, unsigned int seq, unsigned
 			leftSeq += writelen;
 			leftLen -= writelen;
 
-			if (leftLen != 0 || leftSeq == currentNodeSeq + ALTUS_WQ_NODE_BLOCK_COUNT) {
+			if (leftLen != 0 || leftSeq == currentNodeSeq + ALTUS_NODE_SIZE) {
 				altusWQNewNode(window, pool);
 				currentNode = currentNode->to_tail;
-				currentNodeSeq += ALTUS_WQ_NODE_BLOCK_COUNT;
+				currentNodeSeq += ALTUS_NODE_SIZE;
 			}
 		}
 	}
@@ -220,16 +220,16 @@ int altusWQPut(WQ_Window* window, WQ_Node_Pool* pool, unsigned int seq, unsigned
 		while (1) {
 			unsigned int SafeNodeSeq = window->lastSeq - window->safe_tail->validBlockCount;
 			int seqDiff = newSeq - SafeNodeSeq;
-			if (seqDiff > ALTUS_WQ_NODE_BLOCK_COUNT) {
-				window->safe_tail->validBlockCount = ALTUS_WQ_NODE_BLOCK_COUNT;
-				window->lastSeq = SafeNodeSeq + ALTUS_WQ_NODE_BLOCK_COUNT;
+			if (seqDiff > ALTUS_NODE_SIZE) {
+				window->safe_tail->validBlockCount = ALTUS_NODE_SIZE;
+				window->lastSeq = SafeNodeSeq + ALTUS_NODE_SIZE;
 				window->safe_len++;
 				window->unsafe_len--;
 				window->safe_tail = window->safe_tail->to_tail;
 				window->safe_tail->validBlockCount = 0;
 				continue;
 			}
-			else if (seqDiff == ALTUS_WQ_NODE_BLOCK_COUNT) {
+			else if (seqDiff == ALTUS_NODE_SIZE) {
 				window->safe_tail->validBlockCount = seqDiff;
 				window->safe_tail = window->safe_tail->to_tail;
 				window->safe_tail->validBlockCount = 0;
@@ -265,7 +265,7 @@ int altusWQPop(WQ_Window* window, WQ_Node_Pool* pool, int length, char* dest) {
 		leftLen -= writelen;
 		window->headDataOffset += writelen;
 
-		if (window->headDataOffset == ALTUS_WQ_NODE_BLOCK_COUNT) {
+		if (window->headDataOffset == ALTUS_NODE_SIZE) {
 			currentNode = currentNode->to_tail;
 			altusWQPopNode(window, pool);
 			window->headDataOffset = 0;
@@ -285,7 +285,7 @@ int altusWQPop(WQ_Window* window, WQ_Node_Pool* pool, int length, char* dest) {
 int altusWQPeek(WQ_Window* window, unsigned int seq, char** pos) {
 	unsigned int deltaSeq = seq - window->headSeq;
 	WQ_Node* targetNode = window->head;
-	for (; deltaSeq >= ALTUS_WQ_NODE_BLOCK_COUNT; deltaSeq -= ALTUS_WQ_NODE_BLOCK_COUNT) {
+	for (; deltaSeq >= ALTUS_NODE_SIZE; deltaSeq -= ALTUS_NODE_SIZE) {
 		if ((targetNode = targetNode->to_tail) == NULL) {
 			*pos = NULL;
 			return 0;
@@ -372,7 +372,7 @@ void altusFreeWQ(WQ_Window* window) {
 void altusTestN(WQ_Node* node) {
 	printf("--------- node Test ---------\n");
 	printf("validBlockCount: %d  address: 0x%x\n", node->validBlockCount, (unsigned long)node);
-	for (int i = 0; i < ALTUS_WQ_NODE_SIZE; i++) {
+	for (int i = 0; i < ALTUS_NODE_SIZE; i++) {
 		printf("%c", node->data[i]);
 		if (i % 128 == 127) {
 			printf(" ");

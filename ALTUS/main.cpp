@@ -6,6 +6,9 @@ void AcceptSend(void* _host, int a) {
 	char buf[] = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.";
 
 	int retval = peer->CreateUpstream(1, buf, strlen(buf));
+	peer->CreateUpstream(3, buf, strlen(buf));
+	/*char buf2[] = "mallang hello world\nhere!";
+	altusWQPut(peer->getChannelByID(3)->buffer, host->pool, 0, strlen(buf2), buf2);*/
 }
 
 int main() {
@@ -41,7 +44,7 @@ int main() {
 	auto recvPeer = host1->getPeerbyID(1);
 	//TODO: read received data.
 	auto recvChannel = recvPeer->getChannelByID(1);
-	for (int i = 0; i < 100; i++) {
+	/*for (int i = 0; i < 100; i++) {
 		char buf[101];
 		int length = altusWQPop(recvChannel->buffer, recvChannel->pool, 100, buf);
 		buf[length] = 0;
@@ -51,8 +54,22 @@ int main() {
 		}
 		std::cout << buf;
 		Sleep(100);
+	}*/
+
+	//std::string path = host1->getPeerbyID(1)->getChannelByID(3)->frstream->getPath();
+	std::string fileName = host1->getPeerbyID(1)->getChannelByID(3)->frstream->getName();
+	//std::string fullPath = path + fileName;// "mallang.txt";
+	std::cout << "temp file path: " << fileName << std::endl;
+	std::ifstream myFile;
+	
+	host1->getPeerbyID(1)->getChannelByID(3)->frstream->Finalize();
+	myFile.open(fileName, std::ifstream::in);
+	if (myFile.fail()) {
+		std::cout << "file opening failed\n";
 	}
-	Sleep(4000);
+	std::cout << myFile.rdbuf() << std::endl;
+
+	Sleep(10000);
 	printf("done\n");
 	host1->FlushRetryQueue();
 

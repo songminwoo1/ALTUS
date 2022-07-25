@@ -21,6 +21,7 @@ ALTUSHost::ALTUSHost() {
 	connectAction = NullFunc;
 
 	pool = altusWQNewNodePool();
+	newPool = new NodePool();
 
 	localsocket = socket(AF_INET, SOCK_DGRAM, 0);
 	if (localsocket == INVALID_SOCKET) {
@@ -58,6 +59,7 @@ ALTUSHost::ALTUSHost(uint32_t port) {
 	connectAction = NullFunc;
 
 	pool = altusWQNewNodePool();
+	newPool = new NodePool();
 
 	localsocket = socket(AF_INET, SOCK_DGRAM, 0);
 	if (localsocket == INVALID_SOCKET) {
@@ -129,6 +131,7 @@ ALTUSHost::~ALTUSHost() {
 	}
 	senderThread.join();
 	altusFreeP(pool);
+	delete newPool;
 
 	DeleteCriticalSection(&peidCreation);
 	DeleteCriticalSection(&poppingcprepeer);
@@ -316,7 +319,7 @@ void ALTUSHost::prepeerToPeer(uint64_t addrport) {
 		exit(-1);
 	}
 
-	ALTUSPeer* dst = new ALTUSPeer(src, ip, port, localsocket, pool); //server-side initial cuid is 0.
+	ALTUSPeer* dst = new ALTUSPeer(src, ip, port, localsocket, pool, newPool); //server-side initial cuid is 0.
 
 	peers.insert(std::pair<uint64_t, ALTUSPeer*>(addrport, dst));
 
@@ -514,7 +517,7 @@ int ALTUSHost::TryCompleteConnection( //handshake3.
 		exit(-1);
 	}
 
-	ALTUSPeer* newPeer = new ALTUSPeer(addrport, cprepeer, localsocket, pool); //server-side initial cuid is 0.
+	ALTUSPeer* newPeer = new ALTUSPeer(addrport, cprepeer, localsocket, pool, newPool); //server-side initial cuid is 0.
 
 	peers.insert(std::pair<uint64_t, ALTUSPeer*>(addrport, newPeer));
 

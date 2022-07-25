@@ -71,9 +71,10 @@ private:
  	SimpleCallBack acceptAction;
 	SimpleCallBack connectAction;
 
-	WQ_Node_Pool* pool; //for low-level memory mangement of rdt stream.
-
 public:
+	WQ_Node_Pool* pool; //deprecated //for low-level memory mangement of rdt stream.
+	NodePool* newPool;
+
 	ALTUSHost();
 	ALTUSHost(uint32_t port);
 	int run();

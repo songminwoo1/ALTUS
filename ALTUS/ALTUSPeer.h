@@ -45,7 +45,8 @@ private:
 	SOCKET localsocket;
 	std::map<uint16_t, channel*> ch; //cuid(channel uid) to channel map.
 	uint16_t lastcuid;
-	WQ_Node_Pool* pool;
+	WQ_Node_Pool* pool; //deprecated
+	NodePool* newPool;
 public:
 	sockaddr_in remoteAddr;
 	int packetRate; //packets per second
@@ -55,8 +56,8 @@ public:
 
 	explicit ALTUSPeer(
 		ALTUS_SPrePeer* prepeer,
-		uint32_t IP, uint16_t port, SOCKET _localsocket, WQ_Node_Pool* _pool);
-	explicit ALTUSPeer(uint64_t addrport, ALTUS_CPrePeer* prepeer, SOCKET _localsocket, WQ_Node_Pool* _pool);
+		uint32_t IP, uint16_t port, SOCKET _localsocket, WQ_Node_Pool* _pool, NodePool* _newPool);
+	explicit ALTUSPeer(uint64_t addrport, ALTUS_CPrePeer* prepeer, SOCKET _localsocket, WQ_Node_Pool* _pool, NodePool* _newPool);
 	~ALTUSPeer();
 
 	int newChannel(bool IsReceiving);

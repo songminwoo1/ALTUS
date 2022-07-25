@@ -5,8 +5,8 @@
 #define debugH(a) {printf(#a); printf(": 0x%x\n", a);}
 
 #define ALTUS_WQ_BLOCK_SIZE 1 //block size of AES, 128-bit. (smallest unit of data in a node)
-#define ALTUS_WQ_NODE_BLOCK_COUNT 4096 //number of blocks in one node.(256)
-#define ALTUS_WQ_NODE_SIZE 4096 //DATA_BLOCK_SIZE * WINDOW_NODE_BLOCK_COUNT(4096)
+#define ALTUS_WQ_NODE_BYTE_COUNT 4096 //number of blocks in one node.(256)
+#define ALTUS_NODE_SIZE 4096 //DATA_BLOCK_SIZE * WINDOW_NODE_BLOCK_COUNT(4096)
 #define ALTUS_WINDOW_BLOCK_MAX_DEFAULT 0x20000U //2MB of window.
 #define ALTUS_WINDOW_BLOCK_MAX_ABSOLUTE 0x40000000U //2MB of window.
 
@@ -14,7 +14,7 @@ typedef struct WQ_Node_Struct { //component of WQ_WINDOW
 	void* to_head;
 	void* to_tail;
 
-	char data[ALTUS_WQ_NODE_SIZE]; //4096 byte of data section.
+	char data[ALTUS_NODE_SIZE]; //4096 byte of data section.
 	unsigned int validBlockCount; //number of valid blocks in data section.(max is 256)
 } WQ_Node;
 

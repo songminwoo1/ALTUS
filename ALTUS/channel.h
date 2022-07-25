@@ -12,6 +12,7 @@ extern "C"
 {
 #include "windowedqueue.h"
 }
+#include "fileReceiveStream.h"
 
 //rdt_stream flag.
 #define ALTUS_FLAG_ACK 0b00000001 //this asks for immediate acknowledgement.
@@ -31,32 +32,42 @@ enum class channelType {
 	invalid = 0,
 	shared_struct, //this does not ensure sequence. only final state matters. can be larger than packet size.
 	rdt_stream, //mostly for file transfer.
+	file_stream,
 	lossy_stream, //mostly for audio.
 	//TODO: 다시 생각하기.
-	rdt_event, //reliable, atomic event.
-	lossy_event, //sequence-unreliable, but atomic event.
-	array_reserved //high-performance array transmission.(rdt)
+	//rdt_event, //reliable, atomic event- required?
+	//lossy_event, //sequence-unreliable, but atomic event.
+	shared_struct_rcv, //this does not ensure sequence. only final state matters. can be larger than packet size.
+	rdt_stream_rcv, //mostly for file transfer.
+	file_stream_rcv,
+	lossy_stream_rcv, //mostly for audio.
+	//TODO: 다시 생각하기.
+	//rdt_event_rcv, //reliable, atomic event.
+	//lossy_event_rcv, //sequence-unreliable, but atomic event.
 };
 
 class channel {
 public:
+	WQ_Node_Pool* pool; //deprecated
+	NodePool* newPool;
 	channelType type;
+
 	bool _IsReceiving;
-	WQ_Node_Pool* pool;
 
 	std::atomic<unsigned int> NextSendSeq;
 	unsigned int lastAckedSeq;
 	unsigned short lastLostLen;
-	//std::map<uint16_t, EventCallBack> events; //required?
 	
 	bool _IsUpdated;
 	union {
-		WQ_Window* buffer; //for rdt.
+		FileRcvStream* frstream;
+		WQ_Window* buffer; //deprecated
 		void* storage; //for shared struct.
 	};
-	uint8_t storage_size;
+	int storage_size;
 
-	channel(WQ_Node_Pool* _pool, bool IsReceiver);
+	channel(NodePool* _newPool, WQ_Node_Pool* _pool, bool IsReceiver);
+	channel(NodePool* _newPool, WQ_Node_Pool* _pool, channelType _type, void* arg, int n);
 	~channel();
 
 	//channelType Type();

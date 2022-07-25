@@ -61,13 +61,14 @@ ALTUS_SPrePeer::~ALTUS_SPrePeer() {
 
 ALTUSPeer::ALTUSPeer( //server-side
 		ALTUS_SPrePeer* prepeer,
-		uint32_t IP, uint16_t port, SOCKET _localsocket, WQ_Node_Pool* _pool)
+		uint32_t IP, uint16_t port, SOCKET _localsocket, WQ_Node_Pool* _pool, NodePool* _newPool)
 	{
 	//printf("server peer\n");
 
 	localsocket = _localsocket;
 	lastcuid = 1;
-	pool = _pool;
+	pool = _pool; //deprecated
+	newPool = _newPool;
 
 	ZeroMemory(&remoteAddr, sizeof(remoteAddr));
 	remoteAddr.sin_addr.S_un.S_addr = IP;
@@ -81,24 +82,35 @@ ALTUSPeer::ALTUSPeer( //server-side
 	prepeer->publicKey = nullptr;	//prevent freeing at prepeer deconstructor;
 	prepeer->sessionKey = nullptr;	//prevent freeing at prepeer deconstructor;
 
-	channel* receivingCH = new channel(_pool, true);
+	//deprecated
+	channel* receivingCH = new channel(_newPool, _pool, true);
 	receivingCH->LinkRDTWindow();
-	channel* sendingCH = new channel(_pool, false);
+	channel* sendingCH = new channel(_newPool, _pool, false);
 	sendingCH->LinkRDTWindow();
 	sendingCH->_IsReceiving = false;
+
+	channel* fileSenderCH = new channel(_newPool, _pool, false);
+	fileSenderCH->LinkRDTWindow();
+	fileSenderCH->_IsReceiving = false;
+
 	ch.insert(std::pair<uint32_t, channel*>(0, receivingCH)); //receiving
 	ch.insert(std::pair<uint32_t, channel*>(1, sendingCH)); //sending
+	ch.insert(std::pair<uint32_t, channel*>(2, 
+		new channel(newPool, pool, channelType::file_stream_rcv, nullptr, 0)));
+	ch.insert(std::pair<uint32_t, channel*>(3,
+		fileSenderCH));
 }
 
 //client-side.
-ALTUSPeer::ALTUSPeer(uint64_t addrport, ALTUS_CPrePeer* prepeer, SOCKET _localsocket, WQ_Node_Pool* _pool) {
+ALTUSPeer::ALTUSPeer(uint64_t addrport, ALTUS_CPrePeer* prepeer, SOCKET _localsocket, WQ_Node_Pool* _pool, NodePool* _newPool) {
 	//printf("client peer\n");
 	uint32_t ip = addrport >> 32;
 	uint16_t port = addrport & 0xFFFF;
 
 	localsocket = _localsocket;
 	lastcuid = 1;
-	pool = _pool;
+	pool = _pool; //deprecated
+	newPool = _newPool;
 
 	ZeroMemory(&remoteAddr, sizeof(remoteAddr));
 	remoteAddr.sin_addr.S_un.S_addr = ip;
@@ -112,13 +124,22 @@ ALTUSPeer::ALTUSPeer(uint64_t addrport, ALTUS_CPrePeer* prepeer, SOCKET _localso
 	prepeer->publicKey = nullptr;	//prevent freeing at prepeer deconstructor;
 	prepeer->sessionKey = nullptr;	//prevent freeing at prepeer deconstructor;
 
-	channel* sendingCH = new channel(_pool, false);
+	channel* sendingCH = new channel(_newPool, _pool, false);
 	sendingCH->LinkRDTWindow();
 	sendingCH->_IsReceiving = false;
-	channel* receivingCH = new channel(_pool, true);
+	channel* receivingCH = new channel(_newPool, _pool, true);
 	receivingCH->LinkRDTWindow();
+
+	channel* fileSenderCH = new channel(_newPool, _pool, false);
+	fileSenderCH->LinkRDTWindow();
+	fileSenderCH->_IsReceiving = false;
+
 	ch.insert(std::pair<uint32_t, channel*>(0, sendingCH)); //sending
 	ch.insert(std::pair<uint32_t, channel*>(1, receivingCH)); //receiving
+	ch.insert(std::pair<uint32_t, channel*>(2,
+		fileSenderCH));
+	ch.insert(std::pair<uint32_t, channel*>(3,
+		new channel(newPool, pool, channelType::file_stream_rcv, nullptr, 0)));
 }
 
 ALTUSPeer::~ALTUSPeer() {
@@ -142,7 +163,13 @@ int ALTUSPeer::newChannel(bool IsReceiving) {
 		newcuid++;
 		if (newcuid == lastcuid) return -1;
 	}
-	ch.insert(std::pair<uint16_t, channel*>(newcuid, new channel(pool, IsReceiving)));
+	try {
+		ch.insert(std::pair<uint16_t, channel*>(newcuid, new channel(newPool, pool, IsReceiving)));
+	}
+	catch(std::invalid_argument e) {
+		std::cerr << e.what();
+		return -1;
+	}
 	return newcuid;
 }
 
@@ -267,9 +294,6 @@ int ALTUSPeer::Send() {
 						break;
 					}
 					case channelType::lossy_stream:
-					case channelType::rdt_event:
-					case channelType::lossy_event:
-					case channelType::array_reserved:
 					default:
 						return -2;
 				}
